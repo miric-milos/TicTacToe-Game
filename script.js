@@ -29,11 +29,12 @@ $(document).ready(() => {
             handleClickedCell(ev.target);
             return;
         }
-        alert("Game not started!");
+        alert("Round ended. Restart the game to play again!");
     })
 })
 
 function startGame() {
+    clearBoard();
     setPlayers();
     gameStarted = true;
 }
@@ -48,7 +49,7 @@ function setPlayers() {
 
 function handleClickedCell(clickedCell) {
 
-    if(gameState[clickedCell.id] !== "") {
+    if (gameState[clickedCell.id] !== "") {
         // If a cell is filled, nothing will happen
         return;
     }
@@ -64,18 +65,24 @@ function handleClickedCell(clickedCell) {
         let c2 = gameState[winCon[1]];
         let c3 = gameState[winCon[2]];
 
-        if(c1 === "" || c2 === "" || c3 === "") {
+        if (c1 === "" || c2 === "" || c3 === "") {
             continue;
         }
 
-        if(c1 === c2 && c2 === c3) {
+        if (c1 === c2 && c2 === c3) {
             // Winner found
             gameStarted = false;
-            alert(currentPlayer + " wins!");
+            $("#message").html(currentPlayer + " wins!");
             break;
         }
     }
 
     prevPlayer = currentPlayer;
     setPlayers();
+}
+
+function clearBoard() {
+    gameState = ["", "", "", "", "", "", "", "", ""];
+    $("#message").html("");
+    $(".cell").html("");
 }

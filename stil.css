@@ -1,3 +1,7 @@
 .cell {                
     height: 100px;
 }
+
+#message {
+    font-size: xx-large;
+}
