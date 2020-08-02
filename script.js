@@ -75,8 +75,12 @@ function handleClickedCell(clickedCell) {
             $("#message").html(currentPlayer + " wins!");
             break;
         }
-    }
 
+        if (!gameState.includes("")) {
+            $("#message").html("Draw!");
+        }
+    }
+    
     prevPlayer = currentPlayer;
     setPlayers();
 }
