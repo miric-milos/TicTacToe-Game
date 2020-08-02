@@ -5,14 +5,14 @@ let currentPlayer;
 let prevPlayer;
 
 let winConditions = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,4,8],
-    [2,4,6],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8]
 ];
 
 $(document).ready(() => {
@@ -46,22 +46,20 @@ function setPlayers() {
 function checkForWinners(clickedCell) {
     // Fill the cell
     clickedCell.innerHTML = currentPlayer;
-    
-    for(let winCon of winConditions) {
+    clickedCell.value = currentPlayer;
+
+    for (let winCon of winConditions) {
         // let a = winCon[0];
         // let b = winCon[1];
         // let c = winCon[2];
 
-        let cell1 = getCell(winCon[0]).innerHTML;
-        let cell2 = getCell(winCon[1]).innerHTML;
-        let cell3 = getCell(winCon[2]).innerHTML;
+        let cell1 = getCell(winCon[0]).value;
+        let cell2 = getCell(winCon[1]).value;
+        let cell3 = getCell(winCon[2]).value;
 
-        if(cell1 === cell2 && cell2 === cell3) {
-            // Winner found
+        if (cell1 === cell2 && cell2 === cell3) {
+            console.log("Round won");
         }
-
-        console.log(cell1);
-        break;
     }
 
     prevPlayer = currentPlayer;
@@ -69,5 +67,6 @@ function checkForWinners(clickedCell) {
 }
 
 function getCell(cellId) {
-    return document.getElementById(cellId);
+
+
 }
