@@ -4,6 +4,9 @@ let gameStarted = false;
 let currentPlayer;
 let prevPlayer;
 
+// Tracks played cells
+let gameState = ["", "", "", "", "", "", "", "", ""];
+
 let winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -23,7 +26,7 @@ $(document).ready(() => {
     $(".cell").click((ev) => {
         // console.log(ev.target.dataset.cellId);
         if (gameStarted) {
-            checkForWinners(ev.target);
+            handleClickedCell(ev.target);
             return;
         }
         alert("Game not started!");
@@ -43,30 +46,36 @@ function setPlayers() {
     }
 }
 
-function checkForWinners(clickedCell) {
+function handleClickedCell(clickedCell) {
+
+    if(gameState[clickedCell.id] !== "") {
+        // If a cell is filled, nothing will happen
+        return;
+    }
+
+    // Validate cell
+    gameState[clickedCell.id] = currentPlayer;
+
     // Fill the cell
     clickedCell.innerHTML = currentPlayer;
-    clickedCell.value = currentPlayer;
 
     for (let winCon of winConditions) {
-        // let a = winCon[0];
-        // let b = winCon[1];
-        // let c = winCon[2];
+        let c1 = gameState[winCon[0]];
+        let c2 = gameState[winCon[1]];
+        let c3 = gameState[winCon[2]];
 
-        let cell1 = getCell(winCon[0]).value;
-        let cell2 = getCell(winCon[1]).value;
-        let cell3 = getCell(winCon[2]).value;
+        if(c1 === "" || c2 === "" || c3 === "") {
+            continue;
+        }
 
-        if (cell1 === cell2 && cell2 === cell3) {
-            console.log("Round won");
+        if(c1 === c2 && c2 === c3) {
+            // Winner found
+            gameStarted = false;
+            alert(currentPlayer + " wins!");
+            break;
         }
     }
 
     prevPlayer = currentPlayer;
     setPlayers();
-}
-
-function getCell(cellId) {
-
-
 }
